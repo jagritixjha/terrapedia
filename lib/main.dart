@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:terrapedia/controller/country_provider.dart';
-import 'package:terrapedia/views/home_screen.dart';
+import 'package:terrapedia/controller/filter_provider.dart';
 import 'package:terrapedia/views/splash_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(
+          create: (context) => FilterProvider(),
+        ),
         ChangeNotifierProvider(
           create: (context) => CountryDataProvider(),
         ),
@@ -22,8 +26,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: HomeScreen(),
+    FilterProvider fl = Provider.of<FilterProvider>(context, listen: false);
+    var cmPro = Provider.of<CountryDataProvider>(context, listen: false);
+    cmPro.fetchData();
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: SplashScreen(),
     );
   }
 }

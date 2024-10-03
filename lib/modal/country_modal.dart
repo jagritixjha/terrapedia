@@ -2,14 +2,18 @@ class CountryModal {
   Map<String, dynamic>? name;
   Map<String, dynamic>? flagsUrl;
   String? region;
+  String? subRegion;
   bool? isIndependent;
-  bool? isSaved = false;
+  String? startOfWeek;
+  bool isSaved = false;
 
   CountryModal({
     this.name,
     this.flagsUrl,
     this.region,
-    this.isIndependent,
+    this.subRegion,
+    this.startOfWeek,
+    this.isIndependent = false,
   });
 
   factory CountryModal.fromJson({required Map<String, dynamic> map}) {
@@ -17,7 +21,9 @@ class CountryModal {
       name: map['name'],
       flagsUrl: map['flags'],
       region: map['region'],
-      isIndependent: map['independent'],
+      subRegion: map['subregion'],
+      isIndependent: map['independent'] ?? false,
+      startOfWeek: map['startOfWeek'],
     );
   }
 }
